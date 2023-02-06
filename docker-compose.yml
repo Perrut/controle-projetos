@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
+
+volumes:
+  postgres:
