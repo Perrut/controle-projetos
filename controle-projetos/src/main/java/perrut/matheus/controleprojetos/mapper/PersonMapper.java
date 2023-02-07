@@ -6,6 +6,8 @@ import perrut.matheus.controleprojetos.dto.PersonDTO;
 
 @Mapper(componentModel = "spring")
 public interface PersonMapper {
-    PersonDTO personToDTO(Person person);
-    Person dtoToPerson(PersonDTO personDTO);
+
+  PersonDTO personToDTO(Person person);
+
+  Person dtoToPerson(PersonDTO personDTO);
 }

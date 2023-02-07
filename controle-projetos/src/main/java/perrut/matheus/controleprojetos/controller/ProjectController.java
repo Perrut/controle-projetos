@@ -11,31 +11,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import perrut.matheus.controleprojetos.dto.PersonDTO;
-import perrut.matheus.controleprojetos.mapper.PersonMapper;
-import perrut.matheus.controleprojetos.service.PersonService;
+import perrut.matheus.controleprojetos.dto.ProjectDTO;
+import perrut.matheus.controleprojetos.mapper.ProjectMapper;
+import perrut.matheus.controleprojetos.service.ProjectService;
 
-@Tag(name = "Person")
+@Tag(name = "Project")
 @RestController
-@RequestMapping(value = "/person")
-public class PersonController {
+@RequestMapping(value = "/project")
+public class ProjectController {
 
   @Autowired
-  PersonMapper personMapper;
+  ProjectMapper projectMapper;
 
   @Autowired
-  PersonService personService;
+  ProjectService projectService;
 
-  @Operation(summary = "Create a new person")
+  @Operation(summary = "Create a new project")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Person created",
+      @ApiResponse(responseCode = "200", description = "Project created",
           content = {@Content(mediaType = "application/json",
-              schema = @Schema(implementation = PersonDTO.class))}),
+              schema = @Schema(implementation = ProjectDTO.class))}),
       @ApiResponse(responseCode = "400", description = "Invalid id supplied",
           content = @Content)})
   @PostMapping
-  public PersonDTO savePerson(@RequestBody PersonDTO personDTO) {
-    return personMapper.personToDTO(
-        personService.savePerson(personMapper.dtoToPerson(personDTO)));
+  public ProjectDTO saveProject(@RequestBody ProjectDTO projectDTO) {
+    return projectMapper.projectToDTO(
+        projectService.saveProject(projectMapper.dtoToProject(projectDTO)));
   }
 }

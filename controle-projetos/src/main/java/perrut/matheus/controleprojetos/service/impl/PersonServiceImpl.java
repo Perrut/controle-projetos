@@ -9,11 +9,11 @@ import perrut.matheus.controleprojetos.service.PersonService;
 @Service
 public class PersonServiceImpl implements PersonService {
 
-    @Autowired
-    PersonRepository personRepository;
+  @Autowired
+  PersonRepository personRepository;
 
-    @Override
-    public Person savePerson(Person person) {
-        return personRepository.save(person);
-    }
+  @Override
+  public Person savePerson(Person person) {
+    return personRepository.save(person);
+  }
 }
