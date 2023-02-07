@@ -2,6 +2,7 @@ package perrut.matheus.controleprojetos.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import perrut.matheus.controleprojetos.domain.Member;
 import perrut.matheus.controleprojetos.repository.MemberRepository;
 import perrut.matheus.controleprojetos.repository.PersonRepository;
@@ -26,6 +27,7 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
+  @Transactional
   public Member saveMember(Member member) {
     projectRepository.findById(member.getProjectId()).orElseThrow();
     personRepository.findById(member.getPersonId()).orElseThrow();

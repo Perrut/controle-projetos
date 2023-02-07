@@ -15,7 +15,7 @@ public class ProjectDTO {
 
   private LocalDate expectedEndDate;
 
-  private LocalDate endData;
+  private LocalDate endDate;
 
   private String description;
 
@@ -62,12 +62,12 @@ public class ProjectDTO {
     this.expectedEndDate = expectedEndDate;
   }
 
-  public LocalDate getEndData() {
-    return endData;
+  public LocalDate getEndDate() {
+    return endDate;
   }
 
-  public void setEndData(LocalDate endData) {
-    this.endData = endData;
+  public void setEndDate(LocalDate endData) {
+    this.endDate = endData;
   }
 
   public String getDescription() {
@@ -122,7 +122,7 @@ public class ProjectDTO {
     return Float.compare(that.getBudget(), getBudget()) == 0 && getId().equals(that.getId())
         && Objects.equals(getName(), that.getName()) && Objects.equals(
         getStartDate(), that.getStartDate()) && Objects.equals(getExpectedEndDate(),
-        that.getExpectedEndDate()) && Objects.equals(getEndData(), that.getEndData())
+        that.getExpectedEndDate()) && Objects.equals(getEndDate(), that.getEndDate())
         && Objects.equals(getDescription(), that.getDescription())
         && getRisk() == that.getRisk() && Objects.equals(getManagerId(),
         that.getManagerId()) && getStatus() == that.getStatus();
@@ -130,7 +130,7 @@ public class ProjectDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getName(), getStartDate(), getExpectedEndDate(), getEndData(),
+    return Objects.hash(getId(), getName(), getStartDate(), getExpectedEndDate(), getEndDate(),
         getDescription(), getBudget(), getRisk(), getManagerId(), getStatus());
   }
 }

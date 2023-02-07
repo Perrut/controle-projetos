@@ -3,6 +3,7 @@ package perrut.matheus.controleprojetos.service.impl;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import perrut.matheus.controleprojetos.domain.Person;
 import perrut.matheus.controleprojetos.repository.PersonRepository;
 import perrut.matheus.controleprojetos.service.PersonService;
@@ -19,6 +20,7 @@ public class PersonServiceImpl implements PersonService {
   }
 
   @Override
+  @Transactional
   public Person savePerson(Person person) {
     return personRepository.save(person);
   }

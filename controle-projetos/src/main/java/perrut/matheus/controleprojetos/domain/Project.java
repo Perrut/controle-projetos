@@ -32,7 +32,7 @@ public class Project {
   private LocalDate expectedEndDate;
 
   @Column(name = "data_fim")
-  private LocalDate endData;
+  private LocalDate endDate;
 
   @Column(name = "descricao")
   private String description;
@@ -84,12 +84,12 @@ public class Project {
     this.expectedEndDate = expectedEndDate;
   }
 
-  public LocalDate getEndData() {
-    return endData;
+  public LocalDate getEndDate() {
+    return endDate;
   }
 
-  public void setEndData(LocalDate endData) {
-    this.endData = endData;
+  public void setEndDate(LocalDate endData) {
+    this.endDate = endData;
   }
 
   public String getDescription() {
@@ -145,7 +145,7 @@ public class Project {
         project.getId()) && Objects.equals(getName(), project.getName())
         && Objects.equals(getStartDate(), project.getStartDate())
         && Objects.equals(getExpectedEndDate(), project.getExpectedEndDate())
-        && Objects.equals(getEndData(), project.getEndData()) && Objects.equals(
+        && Objects.equals(getEndDate(), project.getEndDate()) && Objects.equals(
         getDescription(), project.getDescription()) && getRisk() == project.getRisk()
         && Objects.equals(getManager(), project.getManager())
         && getStatus() == project.getStatus();
@@ -153,7 +153,7 @@ public class Project {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getName(), getStartDate(), getExpectedEndDate(), getEndData(),
+    return Objects.hash(getId(), getName(), getStartDate(), getExpectedEndDate(), getEndDate(),
         getDescription(), getBudget(), getRisk(), getManager(), getStatus());
   }
 }
