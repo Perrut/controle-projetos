@@ -1,5 +1,6 @@
 package perrut.matheus.controleprojetos.service.impl;
 
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import perrut.matheus.controleprojetos.domain.Person;
@@ -11,6 +12,11 @@ public class PersonServiceImpl implements PersonService {
 
   @Autowired
   PersonRepository personRepository;
+
+  @Override
+  public Person findById(Long id) {
+    return personRepository.findById(id).orElseThrow();
+  }
 
   @Override
   public Person savePerson(Person person) {

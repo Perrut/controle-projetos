@@ -35,7 +35,11 @@ CREATE TABLE membros
 ( idprojeto bigserial NOT NULL,
 idpessoa bigint NOT NULL,
 CONSTRAINT pk_membros_projeto PRIMARY KEY (idprojeto),
-CONSTRAINT fk_membros_pessoa FOREIGN KEY (idpessoa)
+--- No repositório do desafio há um aviso para que esse schema
+--- não seja alterado, mas esta constraint comentada abaixo não
+--- faz sentido, pois está correlacionando id de projeto e id de pessoa
+--- CONSTRAINT fk_membros_pessoa FOREIGN KEY (idpessoa)
+CONSTRAINT fk_membros_projeto FOREIGN KEY (idprojeto)
 REFERENCES projeto (id) MATCH SIMPLE
 ON UPDATE NO ACTION ON DELETE NO ACTION,
 CONSTRAINT fk_pessoa FOREIGN KEY (idpessoa)

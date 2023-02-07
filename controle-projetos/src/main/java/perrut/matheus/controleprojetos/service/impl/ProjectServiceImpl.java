@@ -13,6 +13,11 @@ public class ProjectServiceImpl implements ProjectService {
   private ProjectRepository projectRepository;
 
   @Override
+  public Project findById(Long id) {
+    return projectRepository.findById(id).orElseThrow();
+  }
+
+  @Override
   public Project saveProject(Project project) {
     return projectRepository.save(project);
   }
