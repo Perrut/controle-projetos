@@ -6,6 +6,6 @@
         <title>Error</title>
     </head>
     <body>
-        <p>Project ${project.id} cannot be deleted, because its status is ${project.status}</p>
+        <h2>${message}</h2>
     </body>
 </html>

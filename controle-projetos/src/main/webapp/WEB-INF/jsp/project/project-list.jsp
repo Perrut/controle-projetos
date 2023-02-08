@@ -3,7 +3,6 @@
 <html>
     <head>
         <title>Projects</title>
-        <link href="<c:url value="/css/common.css"/>" rel="stylesheet" type="text/css">
         <script>
           function confirmAction(event, id) {
             event.preventDefault();

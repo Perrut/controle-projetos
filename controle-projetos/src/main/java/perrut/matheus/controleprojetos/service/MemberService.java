@@ -4,7 +4,5 @@ import perrut.matheus.controleprojetos.domain.Member;
 
 public interface MemberService {
 
-  Member findById(Long id);
-
   Member saveMember(Member member);
 }

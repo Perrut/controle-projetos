@@ -11,7 +11,9 @@ public class ProjectControllerAdvice {
   @ExceptionHandler(value = IndelibleProjectException.class)
   public ModelAndView indelibleProjectException(IndelibleProjectException e) {
     final ModelAndView modelAndView = new ModelAndView();
-    modelAndView.addObject("project", e.getProject());
+    modelAndView.addObject("message", String.format(
+        "Project %s cannot be deleted, because its status is %s", e.getProject().getId(),
+        e.getProject().getStatus()));
     modelAndView.setViewName("project/project-error");
     return modelAndView;
   }

@@ -23,7 +23,7 @@ public class ProjectDTO {
 
   private String description;
 
-  private float budget;
+  private double budget;
 
   private ProjectRisk risk;
 
@@ -82,11 +82,11 @@ public class ProjectDTO {
     this.description = description;
   }
 
-  public float getBudget() {
+  public double getBudget() {
     return budget;
   }
 
-  public void setBudget(float budget) {
+  public void setBudget(double budget) {
     this.budget = budget;
   }
 
@@ -123,7 +123,7 @@ public class ProjectDTO {
       return false;
     }
     ProjectDTO that = (ProjectDTO) o;
-    return Float.compare(that.getBudget(), getBudget()) == 0 && getId().equals(that.getId())
+    return Double.compare(that.getBudget(), getBudget()) == 0 && getId().equals(that.getId())
         && Objects.equals(getName(), that.getName()) && Objects.equals(
         getStartDate(), that.getStartDate()) && Objects.equals(getExpectedEndDate(),
         that.getExpectedEndDate()) && Objects.equals(getEndDate(), that.getEndDate())

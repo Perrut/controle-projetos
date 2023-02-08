@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import perrut.matheus.controleprojetos.domain.Person;
-import perrut.matheus.controleprojetos.domain.Project;
 import perrut.matheus.controleprojetos.dto.PersonDTO;
-import perrut.matheus.controleprojetos.dto.ProjectDTO;
 
 @Mapper(componentModel = "spring")
 public abstract class PersonMapper {

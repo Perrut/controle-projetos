@@ -7,7 +7,5 @@ import perrut.matheus.controleprojetos.dto.MemberDTO;
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
 
-  MemberDTO memberToDTO(Member member);
-
   Member dtoToMember(MemberDTO memberDTO);
 }

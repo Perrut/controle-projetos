@@ -38,7 +38,7 @@ public class Project {
   private String description;
 
   @Column(name = "orcamento")
-  private float budget;
+  private double budget;
 
   @Column(name = "risco")
   private ProjectRisk risk;
@@ -100,11 +100,11 @@ public class Project {
     this.description = description;
   }
 
-  public float getBudget() {
+  public double getBudget() {
     return budget;
   }
 
-  public void setBudget(float budget) {
+  public void setBudget(double budget) {
     this.budget = budget;
   }
 
@@ -141,7 +141,7 @@ public class Project {
       return false;
     }
     Project project = (Project) o;
-    return Float.compare(project.getBudget(), getBudget()) == 0 && getId().equals(
+    return Double.compare(project.getBudget(), getBudget()) == 0 && getId().equals(
         project.getId()) && Objects.equals(getName(), project.getName())
         && Objects.equals(getStartDate(), project.getStartDate())
         && Objects.equals(getExpectedEndDate(), project.getExpectedEndDate())

@@ -6,10 +6,13 @@ import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import perrut.matheus.controleprojetos.domain.Person;
 import perrut.matheus.controleprojetos.domain.Project;
 import perrut.matheus.controleprojetos.enums.ProjectStatus;
 import perrut.matheus.controleprojetos.exception.IndelibleProjectException;
+import perrut.matheus.controleprojetos.exception.InvalidManagerException;
 import perrut.matheus.controleprojetos.repository.MemberRepository;
+import perrut.matheus.controleprojetos.repository.PersonRepository;
 import perrut.matheus.controleprojetos.repository.ProjectRepository;
 import perrut.matheus.controleprojetos.service.ProjectService;
 
@@ -22,6 +25,9 @@ public class ProjectServiceImpl implements ProjectService {
   @Autowired
   private MemberRepository memberRepository;
 
+  @Autowired
+  private PersonRepository personRepository;
+
   @Override
   public Project findById(Long id) {
     return projectRepository.findById(id).orElseThrow();
@@ -30,6 +36,7 @@ public class ProjectServiceImpl implements ProjectService {
   @Override
   @Transactional
   public Project saveProject(Project project) {
+    validateManager(project);
     return projectRepository.save(project);
   }
 
@@ -44,6 +51,8 @@ public class ProjectServiceImpl implements ProjectService {
   @Transactional
   public Project updateProject(Project newProject, Long id) {
     Project project = projectRepository.findById(id).orElseThrow();
+
+    validateManager(project);
 
     project.setManager(newProject.getManager());
     project.setBudget(newProject.getBudget());
@@ -73,5 +82,12 @@ public class ProjectServiceImpl implements ProjectService {
     return project.getStatus() == ProjectStatus.STARTED
         || project.getStatus() == ProjectStatus.IN_PROGRESS
         || project.getStatus() == ProjectStatus.FINISHED;
+  }
+
+  private void validateManager(Project project) {
+    Person person = personRepository.findById(project.getManager().getId()).orElseThrow();
+    if (person.getEmployee()) {
+      throw new InvalidManagerException(person);
+    }
   }
 }

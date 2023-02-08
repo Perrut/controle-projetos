@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import perrut.matheus.controleprojetos.domain.Member;
+import perrut.matheus.controleprojetos.domain.Person;
+import perrut.matheus.controleprojetos.exception.InvalidEmployeeException;
 import perrut.matheus.controleprojetos.repository.MemberRepository;
 import perrut.matheus.controleprojetos.repository.PersonRepository;
 import perrut.matheus.controleprojetos.repository.ProjectRepository;
@@ -22,15 +24,14 @@ public class MemberServiceImpl implements MemberService {
   private PersonRepository personRepository;
 
   @Override
-  public Member findById(Long id) {
-    return memberRepository.findById(id).orElseThrow();
-  }
-
-  @Override
   @Transactional
   public Member saveMember(Member member) {
     projectRepository.findById(member.getProjectId()).orElseThrow();
-    personRepository.findById(member.getPersonId()).orElseThrow();
+    Person person = personRepository.findById(member.getPersonId()).orElseThrow();
+
+    if (!person.getEmployee()) {
+      throw new InvalidEmployeeException(person);
+    }
 
     memberRepository.findById(member.getProjectId()).ifPresent(m -> {
       memberRepository.delete(m);
