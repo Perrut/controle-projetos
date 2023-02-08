@@ -8,19 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import perrut.matheus.controleprojetos.domain.Person;
+import perrut.matheus.controleprojetos.domain.Project;
 import perrut.matheus.controleprojetos.exception.DuplicatedPersonException;
+import perrut.matheus.controleprojetos.exception.PersonIsManagerException;
 import perrut.matheus.controleprojetos.repository.MemberRepository;
 import perrut.matheus.controleprojetos.repository.PersonRepository;
+import perrut.matheus.controleprojetos.repository.ProjectRepository;
 import perrut.matheus.controleprojetos.service.PersonService;
 
 @Service
 public class PersonServiceImpl implements PersonService {
 
   @Autowired
-  PersonRepository personRepository;
+  private PersonRepository personRepository;
 
   @Autowired
-  MemberRepository memberRepository;
+  private MemberRepository memberRepository;
+
+  @Autowired
+  private ProjectRepository projectRepository;
 
   @Override
   public Person findById(Long id) {
@@ -60,8 +66,15 @@ public class PersonServiceImpl implements PersonService {
   @Transactional
   public void delete(Long id) {
     Person person = personRepository.findById(id).orElseThrow();
-    memberRepository.findByPersonId(person.getId()).stream()
-        .forEach(member -> memberRepository.delete(member));
+    if (person.getEmployee()) {
+      memberRepository.findByPersonId(person.getId()).stream()
+          .forEach(member -> memberRepository.delete(member));
+    } else {
+      List<Project> projects = projectRepository.findByManagerId(person.getId());
+      if(!projects.isEmpty()) {
+        throw new PersonIsManagerException(person, projects);
+      }
+    }
     personRepository.delete(person);
   }
 
