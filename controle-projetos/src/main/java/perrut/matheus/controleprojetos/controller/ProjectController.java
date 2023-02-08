@@ -45,16 +45,13 @@ public class ProjectController {
   @Autowired
   private MemberService memberService;
 
-  //TODO: remove
-  @GetMapping("/list-all")
-  @ResponseBody
-  public List<ProjectDTO> getProjects() {
-    return projectMapper.toDtoList(projectService.findAll());
-  }
-
   @GetMapping("/{id}")
   public String viewProject(Model model, @PathVariable Long id) {
     model.addAttribute("project", projectService.findById(id));
+    PersonDTO projectMember = personMapper.personToDTO(personService.findByProjectId(id));
+    if (Objects.nonNull(projectMember)) {
+      model.addAttribute("projectMember", projectMember);
+    }
     return "project/project-details";
   }
 

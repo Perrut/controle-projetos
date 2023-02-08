@@ -58,7 +58,6 @@ public class PersonServiceImpl implements PersonService {
 
     person.setCpf(newPerson.getCpf());
     person.setBirthDate(newPerson.getBirthDate());
-    person.setEmployee(newPerson.getEmployee());
     person.setName(newPerson.getName());
 
     return personRepository.save(person);

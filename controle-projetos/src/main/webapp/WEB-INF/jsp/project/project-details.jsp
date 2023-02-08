@@ -15,5 +15,8 @@
         <p>${project.risk}</p>
         <p>${project.manager.name}</p>
         <p>${project.status}</p>
+
+        <p>Project Members</p>
+        <p>${projectMember.id} ${projectMember.name}</p>
     </body>
 </html>

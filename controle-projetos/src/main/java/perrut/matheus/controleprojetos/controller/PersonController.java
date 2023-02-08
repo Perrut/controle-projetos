@@ -36,9 +36,7 @@ public class PersonController {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Person created",
           content = {@Content(mediaType = "application/json",
-              schema = @Schema(implementation = PersonDTO.class))}),
-      @ApiResponse(responseCode = "400", description = "Invalid data supplied",
-          content = @Content)})
+              schema = @Schema(implementation = PersonDTO.class))})})
   @PostMapping
   public PersonDTO savePerson(@RequestBody PersonDTO personDTO) {
     return personMapper.personToDTO(
