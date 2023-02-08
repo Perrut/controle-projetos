@@ -2,7 +2,6 @@ package perrut.matheus.controleprojetos.domain;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import perrut.matheus.controleprojetos.enums.ProjectRisk;
 import perrut.matheus.controleprojetos.enums.ProjectStatus;
 
@@ -23,30 +25,39 @@ public class Project {
   private Long id;
 
   @Column(name = "nome")
+  @NotBlank
   private String name;
 
   @Column(name = "data_inicio")
+  @NotNull
   private LocalDate startDate;
 
   @Column(name = "data_previsao_fim")
+  @NotNull
   private LocalDate expectedEndDate;
 
   @Column(name = "data_fim")
+  @NotNull
   private LocalDate endDate;
 
   @Column(name = "descricao")
+  @NotBlank
   private String description;
 
   @Column(name = "orcamento")
+  @Min(value = 0)
   private double budget;
 
   @Column(name = "risco")
+  @NotNull
   private ProjectRisk risk;
 
   @OneToOne
   @JoinColumn(name = "idgerente", referencedColumnName = "id")
+  @NotNull
   private Person manager;
 
+  @NotNull
   private ProjectStatus status;
 
   public Project() {

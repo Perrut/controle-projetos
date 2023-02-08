@@ -15,9 +15,9 @@
 
         <form:form action="${action_project_url}" method="post" modelAttribute="project">
             <form:label path="name">Name: </form:label> <form:input type="text" path="name"/>
-            <form:label path="startDate">Start Date: </form:label> <form:input type="text" path="startDate"/>
-            <form:label path="expectedEndDate">Expected end date: </form:label> <form:input path="expectedEndDate"/>
-            <form:label path="endDate">End date: </form:label> <form:input path="endDate"/>
+            <form:label path="startDate">Start Date (dd/mm/yyyy): </form:label> <form:input type="text" path="startDate"/>
+            <form:label path="expectedEndDate">Expected end date (dd/mm/yyyy): </form:label> <form:input path="expectedEndDate"/>
+            <form:label path="endDate">End date (dd/mm/yyyy): </form:label> <form:input path="endDate"/>
             <form:label path="budget">Budget: </form:label> <form:input path="budget"/>
             <form:label path="description">Description: </form:label> <form:input path="description"/>
             <form:label path="status">Status: </form:label> <form:input path="status"/>
@@ -26,7 +26,7 @@
             <select name="managerId">
               <c:forEach items="${eligibleManagers}" var="manager" varStatus="loop">
                 <option value="${manager.id}">
-                  ${manager.name}
+                  ${manager.id} - ${manager.name}
                 </option>
               </c:forEach>
             </select>
@@ -43,7 +43,7 @@
               <select name="personId">
                 <c:forEach items="${employees}" var="employee" varStatus="loop">
                   <option value="${employee.id}">
-                    ${employee.name}
+                    ${employee.id} - ${employee.name}
                   </option>
                 </c:forEach>
               </select>

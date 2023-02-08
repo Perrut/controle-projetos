@@ -26,6 +26,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Status</th>
                     <th>Risk</th>
@@ -37,6 +38,7 @@
                     <c:url var="project_url" value="/project/${project.id}"/>
                     <c:url var="edit_project_url" value="/project/${project.id}/edit"/>
                     <tr>
+                        <td>${project.id}</td>
                         <td>${project.name}</td>
                         <td>${project.status}</td>
                         <td>${project.risk}</td>

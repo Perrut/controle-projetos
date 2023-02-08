@@ -20,7 +20,7 @@ public class Person {
   private Long id;
 
   @Column(name = "nome")
-  @NotBlank(message = "can't be blank")
+  @NotBlank
   private String name;
 
   @Column(name = "datanascimento")
@@ -30,7 +30,7 @@ public class Person {
   private boolean employee;
 
   @Column(unique = true)
-  @CPF(message = "invalid")
+  @CPF
   private String cpf;
 
   public Person() {

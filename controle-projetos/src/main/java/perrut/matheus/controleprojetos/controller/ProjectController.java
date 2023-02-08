@@ -20,6 +20,7 @@ import perrut.matheus.controleprojetos.mapper.ProjectMapper;
 import perrut.matheus.controleprojetos.service.MemberService;
 import perrut.matheus.controleprojetos.service.PersonService;
 import perrut.matheus.controleprojetos.service.ProjectService;
+import perrut.matheus.controleprojetos.utils.ValidationUtils;
 
 @Controller
 @RequestMapping(value = "/project")
@@ -64,6 +65,8 @@ public class ProjectController {
     model.addAttribute("projectAction", "New project");
     model.addAttribute("project", new ProjectDTO());
     model.addAttribute("addProject", true);
+    model.addAttribute("eligibleManagers",
+        personMapper.toDtoList(personService.listEligibleManagers()));
     return "project/project-form";
   }
 
