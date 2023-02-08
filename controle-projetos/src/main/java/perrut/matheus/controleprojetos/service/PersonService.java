@@ -13,4 +13,6 @@ public interface PersonService {
   List<Person> findAll();
 
   Person updatePerson(Person newPerson, Long id);
+
+  void delete(Long id);
 }

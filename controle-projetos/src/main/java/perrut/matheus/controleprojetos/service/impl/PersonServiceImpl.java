@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import perrut.matheus.controleprojetos.domain.Person;
 import perrut.matheus.controleprojetos.exception.DuplicatedPersonException;
+import perrut.matheus.controleprojetos.repository.MemberRepository;
 import perrut.matheus.controleprojetos.repository.PersonRepository;
 import perrut.matheus.controleprojetos.service.PersonService;
 
@@ -17,6 +18,9 @@ public class PersonServiceImpl implements PersonService {
 
   @Autowired
   PersonRepository personRepository;
+
+  @Autowired
+  MemberRepository memberRepository;
 
   @Override
   public Person findById(Long id) {
@@ -38,6 +42,7 @@ public class PersonServiceImpl implements PersonService {
   }
 
   @Override
+  @Transactional
   public Person updatePerson(@Valid Person newPerson, Long id) {
     Person person = personRepository.findById(id).orElseThrow();
 
@@ -49,6 +54,15 @@ public class PersonServiceImpl implements PersonService {
     person.setName(newPerson.getName());
 
     return personRepository.save(person);
+  }
+
+  @Override
+  @Transactional
+  public void delete(Long id) {
+    Person person = personRepository.findById(id).orElseThrow();
+    memberRepository.findByPersonId(person.getId()).stream()
+        .forEach(member -> memberRepository.delete(member));
+    personRepository.delete(person);
   }
 
   private void verifyCpfAlreadyExists(Person person) {
