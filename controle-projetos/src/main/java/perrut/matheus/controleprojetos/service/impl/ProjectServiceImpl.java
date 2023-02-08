@@ -63,8 +63,8 @@ public class ProjectServiceImpl implements ProjectService {
   public Project updateProject(Project newProject, Long id) {
     Project project = projectRepository.findById(id).orElseThrow();
 
-    validateProject(project);
-    validateManager(project);
+    validateProject(newProject);
+    validateManager(newProject);
 
     project.setManager(newProject.getManager());
     project.setBudget(newProject.getBudget());
