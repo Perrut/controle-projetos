@@ -53,7 +53,7 @@ public class PersonController {
   @PutMapping("{id}")
   public PersonDTO updatePerson(@RequestBody PersonDTO personDTO, @PathVariable Long id) {
     return personMapper.personToDTO(
-        personService.savePerson(personMapper.dtoToPerson(personDTO)));
+        personService.updatePerson(personMapper.dtoToPerson(personDTO), id));
   }
 
   @Operation(summary = "List all people")

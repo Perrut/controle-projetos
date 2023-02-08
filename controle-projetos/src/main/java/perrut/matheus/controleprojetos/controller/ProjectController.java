@@ -1,6 +1,7 @@
 package perrut.matheus.controleprojetos.controller;
 
 import java.util.List;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,15 +9,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-import perrut.matheus.controleprojetos.domain.Project;
+import perrut.matheus.controleprojetos.dto.MemberDTO;
+import perrut.matheus.controleprojetos.dto.PersonDTO;
 import perrut.matheus.controleprojetos.dto.ProjectDTO;
+import perrut.matheus.controleprojetos.mapper.MemberMapper;
+import perrut.matheus.controleprojetos.mapper.PersonMapper;
 import perrut.matheus.controleprojetos.mapper.ProjectMapper;
+import perrut.matheus.controleprojetos.service.MemberService;
+import perrut.matheus.controleprojetos.service.PersonService;
 import perrut.matheus.controleprojetos.service.ProjectService;
 
 @Controller
@@ -24,10 +28,22 @@ import perrut.matheus.controleprojetos.service.ProjectService;
 public class ProjectController {
 
   @Autowired
-  ProjectMapper projectMapper;
+  private ProjectMapper projectMapper;
 
   @Autowired
-  ProjectService projectService;
+  private PersonMapper personMapper;
+
+  @Autowired
+  private MemberMapper memberMapper;
+
+  @Autowired
+  private ProjectService projectService;
+
+  @Autowired
+  private PersonService personService;
+
+  @Autowired
+  private MemberService memberService;
 
   //TODO: remove
   @GetMapping("/list-all")
@@ -73,10 +89,18 @@ public class ProjectController {
 
   @GetMapping("/{id}/edit")
   public String editProjectView(Model model, @PathVariable Long id) {
+    model.addAttribute("eligibleManagers",
+        personMapper.toDtoList(personService.listEligibleManagers()));
+    model.addAttribute("employees", personMapper.toDtoList(personService.listEmployees()));
     model.addAttribute("projectAction", "Update project");
     model.addAttribute("updateProject", true);
     model.addAttribute("project",
         projectMapper.projectToDTO(projectService.findById(id)));
+    model.addAttribute("member", new MemberDTO());
+    PersonDTO projectMember = personMapper.personToDTO(personService.findByProjectId(id));
+    if (Objects.nonNull(projectMember)) {
+      model.addAttribute("projectMember", projectMember);
+    }
     return "project/project-form";
   }
 
@@ -94,6 +118,31 @@ public class ProjectController {
     redirectAttributes.addFlashAttribute("updateProjectSuccess", true);
     redirectAttributes.addFlashAttribute("projects",
         projectMapper.toDtoList(projectService.findAll()));
+    return redirectView;
+  }
+
+  @PostMapping("/{id}/membership")
+  public RedirectView addMembership(
+      @ModelAttribute("member") MemberDTO memberDTO,
+      @PathVariable Long id,
+      RedirectAttributes redirectAttributes) {
+    final RedirectView redirectView = new RedirectView("/project/" + id + "/edit", true);
+
+    memberService.saveMember(memberMapper.dtoToMember(memberDTO));
+
+    redirectAttributes.addFlashAttribute("eligibleManagers",
+        personMapper.toDtoList(personService.listEligibleManagers()));
+    redirectAttributes.addFlashAttribute("employees",
+        personMapper.toDtoList(personService.listEmployees()));
+    redirectAttributes.addFlashAttribute("projectAction", "Update project");
+    redirectAttributes.addFlashAttribute("updateProject", true);
+    redirectAttributes.addFlashAttribute("project",
+        projectMapper.projectToDTO(projectService.findById(id)));
+    redirectAttributes.addFlashAttribute("member", new MemberDTO());
+    PersonDTO projectMember = personMapper.personToDTO(personService.findByProjectId(id));
+    if (Objects.nonNull(projectMember)) {
+      redirectAttributes.addFlashAttribute("projectMember", projectMember);
+    }
     return redirectView;
   }
 

@@ -32,6 +32,10 @@ public class MemberServiceImpl implements MemberService {
     projectRepository.findById(member.getProjectId()).orElseThrow();
     personRepository.findById(member.getPersonId()).orElseThrow();
 
+    memberRepository.findById(member.getProjectId()).ifPresent(m -> {
+      memberRepository.delete(m);
+    });
+
     return memberRepository.save(member);
   }
 }

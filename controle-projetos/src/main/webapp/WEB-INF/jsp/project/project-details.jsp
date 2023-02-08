@@ -13,7 +13,7 @@
         <p>${project.description}</p>
         <p>${project.budget}</p>
         <p>${project.risk}</p>
-        <p>${project.manager}</p>
+        <p>${project.manager.name}</p>
         <p>${project.status}</p>
     </body>
 </html>

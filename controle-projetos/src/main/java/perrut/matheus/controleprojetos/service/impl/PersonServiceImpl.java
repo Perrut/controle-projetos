@@ -1,12 +1,14 @@
 package perrut.matheus.controleprojetos.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import perrut.matheus.controleprojetos.domain.Member;
 import perrut.matheus.controleprojetos.domain.Person;
 import perrut.matheus.controleprojetos.domain.Project;
 import perrut.matheus.controleprojetos.exception.DuplicatedPersonException;
@@ -71,11 +73,30 @@ public class PersonServiceImpl implements PersonService {
           .forEach(member -> memberRepository.delete(member));
     } else {
       List<Project> projects = projectRepository.findByManagerId(person.getId());
-      if(!projects.isEmpty()) {
+      if (!projects.isEmpty()) {
         throw new PersonIsManagerException(person, projects);
       }
     }
     personRepository.delete(person);
+  }
+
+  @Override
+  public List<Person> listEligibleManagers() {
+    return personRepository.listEligibleManagers();
+  }
+
+  @Override
+  public List<Person> listEmployees() {
+    return personRepository.listEmployees();
+  }
+
+  @Override
+  public Person findByProjectId(Long projectId) {
+    Member member = memberRepository.findById(projectId).orElse(null);
+    if (Objects.nonNull(member)) {
+      return personRepository.findById(member.getPersonId()).orElse(null);
+    }
+    return null;
   }
 
   private void verifyCpfAlreadyExists(Person person) {

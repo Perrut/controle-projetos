@@ -15,4 +15,10 @@ public interface PersonService {
   Person updatePerson(Person newPerson, Long id);
 
   void delete(Long id);
+
+  List<Person> listEligibleManagers();
+
+  List<Person> listEmployees();
+
+  Person findByProjectId(Long projectId);
 }
