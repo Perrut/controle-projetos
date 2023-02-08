@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import perrut.matheus.controleprojetos.domain.Project;
+import perrut.matheus.controleprojetos.enums.ProjectStatus;
+import perrut.matheus.controleprojetos.exception.IndelibleProjectException;
+import perrut.matheus.controleprojetos.repository.MemberRepository;
 import perrut.matheus.controleprojetos.repository.ProjectRepository;
 import perrut.matheus.controleprojetos.service.ProjectService;
 
@@ -15,6 +18,9 @@ public class ProjectServiceImpl implements ProjectService {
 
   @Autowired
   private ProjectRepository projectRepository;
+
+  @Autowired
+  private MemberRepository memberRepository;
 
   @Override
   public Project findById(Long id) {
@@ -55,6 +61,17 @@ public class ProjectServiceImpl implements ProjectService {
   @Override
   @Transactional
   public void delete(Long id) {
+    Project project = projectRepository.findById(id).orElseThrow();
+    if (cannotBeDeleted(project)) {
+      throw new IndelibleProjectException(project);
+    }
+    memberRepository.findById(id).ifPresent((member -> memberRepository.delete(member)));
     projectRepository.delete(projectRepository.findById(id).orElseThrow());
+  }
+
+  private boolean cannotBeDeleted(Project project) {
+    return project.getStatus() == ProjectStatus.STARTED
+        || project.getStatus() == ProjectStatus.IN_PROGRESS
+        || project.getStatus() == ProjectStatus.FINISHED;
   }
 }

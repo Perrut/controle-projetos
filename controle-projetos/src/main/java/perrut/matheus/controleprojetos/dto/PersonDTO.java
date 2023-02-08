@@ -11,7 +11,7 @@ public class PersonDTO {
 
   private LocalDate birthDate;
 
-  private Boolean employee;
+  private boolean employee;
 
   private String cpf;
 
@@ -42,11 +42,11 @@ public class PersonDTO {
     this.birthDate = birthDate;
   }
 
-  public Boolean getEmployee() {
+  public boolean getEmployee() {
     return employee;
   }
 
-  public void setEmployee(Boolean employee) {
+  public void setEmployee(boolean employee) {
     this.employee = employee;
   }
 

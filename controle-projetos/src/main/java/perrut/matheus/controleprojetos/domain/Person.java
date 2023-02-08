@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "pessoa")
@@ -18,14 +21,17 @@ public class Person {
   private Long id;
 
   @Column(name = "nome")
+  @NotBlank(message = "can't be blank")
   private String name;
 
   @Column(name = "datanascimento")
   private LocalDate birthDate;
 
   @Column(name = "funcionario")
-  private Boolean employee;
+  private boolean employee;
 
+  @Column(unique = true)
+  @CPF(message = "invalid")
   private String cpf;
 
   public Person() {
@@ -55,11 +61,11 @@ public class Person {
     this.birthDate = birthDate;
   }
 
-  public Boolean getEmployee() {
+  public boolean getEmployee() {
     return employee;
   }
 
-  public void setEmployee(Boolean employee) {
+  public void setEmployee(boolean employee) {
     this.employee = employee;
   }
 
