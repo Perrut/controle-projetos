@@ -14,4 +14,9 @@ public enum ProjectRisk {
   public String getRisk() {
     return risk;
   }
+
+  @Override
+  public String toString() {
+    return risk;
+  }
 }

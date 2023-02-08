@@ -2,6 +2,7 @@ package perrut.matheus.controleprojetos.dto;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import org.springframework.format.annotation.DateTimeFormat;
 import perrut.matheus.controleprojetos.enums.ProjectRisk;
 import perrut.matheus.controleprojetos.enums.ProjectStatus;
 
@@ -11,10 +12,13 @@ public class ProjectDTO {
 
   private String name;
 
+  @DateTimeFormat(pattern="dd/MM/yyyy")
   private LocalDate startDate;
 
+  @DateTimeFormat(pattern="dd/MM/yyyy")
   private LocalDate expectedEndDate;
 
+  @DateTimeFormat(pattern="dd/MM/yyyy")
   private LocalDate endDate;
 
   private String description;

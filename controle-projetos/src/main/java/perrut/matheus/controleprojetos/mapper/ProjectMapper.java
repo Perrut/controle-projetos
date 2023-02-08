@@ -1,6 +1,8 @@
 package perrut.matheus.controleprojetos.mapper;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,11 @@ public abstract class ProjectMapper {
 
   @Mapping(target = "manager", expression = "java(findById(projectDTO.getManagerId()))")
   public abstract Project dtoToProject(ProjectDTO projectDTO);
+
+  public List<ProjectDTO> toDtoList(List<Project> projects) {
+    return projects.stream().map((project) -> this.projectToDTO(project))
+        .collect(Collectors.toList());
+  }
 
   protected Person findById(Long id) {
     if (Objects.isNull(id)) {

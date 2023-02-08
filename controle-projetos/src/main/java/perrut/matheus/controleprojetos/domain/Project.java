@@ -43,7 +43,7 @@ public class Project {
   @Column(name = "risco")
   private ProjectRisk risk;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne
   @JoinColumn(name = "idgerente", referencedColumnName = "id")
   private Person manager;
 
