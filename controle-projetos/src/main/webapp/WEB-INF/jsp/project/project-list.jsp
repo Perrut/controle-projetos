@@ -15,6 +15,12 @@
         </script>
     </head>
     <body>
+        <c:if test="${addProjectSuccess}">
+            <div>Successfully added Project with ID: ${savedProject.id}</div>
+        </c:if>
+        <c:if test="${updateProjectSuccess}">
+            <div>Successfully updated Project with ID: ${updatedProject.id}</div>
+        </c:if>
         <c:if test="${deleteProjectSuccess}">
             <div>Successfully deleted Project with ID: ${deletedProjectId}</div>
         </c:if>

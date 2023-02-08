@@ -6,13 +6,11 @@
         <title>${projectAction}</title>
     </head>
     <body>
-        <c:if test="${addProjectSuccess}">
-            <div>Successfully added Project with ID: ${savedProject.id}</div>
+        <c:if test="${addProject}">
             <c:url var="action_project_url" value="/project/new"/>
         </c:if>
-        <c:if test="${updateProjectSuccess}">
-            <div>Successfully updated Project with ID: ${updatedProject.id}</div>
-            <c:url var="action_project_url" value="/project/${updatedProject.id}/edit"/>
+        <c:if test="${updateProject}">
+            <c:url var="action_project_url" value="/project/${project.id}/edit"/>
         </c:if>
 
         <form:form action="${action_project_url}" method="post" modelAttribute="project">

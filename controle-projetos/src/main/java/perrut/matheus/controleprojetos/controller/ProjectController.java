@@ -52,26 +52,29 @@ public class ProjectController {
   public String addProjectView(Model model) {
     model.addAttribute("projectAction", "New project");
     model.addAttribute("project", new ProjectDTO());
+    model.addAttribute("addProject", true);
     return "project/project-form";
   }
 
   @PostMapping("/new")
   public RedirectView addProject(@ModelAttribute("project") ProjectDTO projectDTO,
       RedirectAttributes redirectAttributes) {
-    final RedirectView redirectView = new RedirectView("/project/new", true);
+    final RedirectView redirectView = new RedirectView("/project/list", true);
 
     ProjectDTO savedProjectDTO = projectMapper
         .projectToDTO(projectService.saveProject(projectMapper.dtoToProject(projectDTO)));
 
     redirectAttributes.addFlashAttribute("savedProject", savedProjectDTO);
     redirectAttributes.addFlashAttribute("addProjectSuccess", true);
-    redirectAttributes.addFlashAttribute("projectAction", "New project");
+    redirectAttributes.addFlashAttribute("projects",
+        projectMapper.toDtoList(projectService.findAll()));
     return redirectView;
   }
 
   @GetMapping("/{id}/edit")
   public String editProjectView(Model model, @PathVariable Long id) {
     model.addAttribute("projectAction", "Update project");
+    model.addAttribute("updateProject", true);
     model.addAttribute("project",
         projectMapper.projectToDTO(projectService.findById(id)));
     return "project/project-form";
@@ -82,14 +85,15 @@ public class ProjectController {
       @ModelAttribute("project") ProjectDTO projectDTO,
       @PathVariable Long id,
       RedirectAttributes redirectAttributes) {
-    final RedirectView redirectView = new RedirectView("/project/new", true);
+    final RedirectView redirectView = new RedirectView("/project/list", true);
 
     ProjectDTO updatedProjectDTO = projectMapper
         .projectToDTO(projectService.updateProject(projectMapper.dtoToProject(projectDTO), id));
 
     redirectAttributes.addFlashAttribute("updatedProject", updatedProjectDTO);
     redirectAttributes.addFlashAttribute("updateProjectSuccess", true);
-    redirectAttributes.addFlashAttribute("projects", "Update project");
+    redirectAttributes.addFlashAttribute("projects",
+        projectMapper.toDtoList(projectService.findAll()));
     return redirectView;
   }
 

@@ -47,6 +47,7 @@ public class ProjectServiceImpl implements ProjectService {
     project.setEndDate(newProject.getEndDate());
     project.setRisk(newProject.getRisk());
     project.setStatus(newProject.getStatus());
+    project.setName(newProject.getName());
 
     return projectRepository.save(project);
   }
