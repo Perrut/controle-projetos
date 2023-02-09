@@ -3,7 +3,6 @@ package perrut.matheus.controleprojetos.mother;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import perrut.matheus.controleprojetos.domain.Person;
 
@@ -32,7 +31,7 @@ public class PersonMother {
     return person;
   }
 
-  public static Iterable<Person> getPeopleIterator() {
+  public static Iterable<Person> getPeopleIterable() {
     List<Person> personList = new ArrayList<>();
 
     personList.add(getPerson());

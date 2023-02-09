@@ -1,13 +1,8 @@
 package perrut.matheus.controleprojetos.service.impl;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,9 +29,6 @@ public class ProjectServiceImpl implements ProjectService {
 
   @Autowired
   private PersonRepository personRepository;
-
-  @Autowired
-  private ValidatorFactory validatorFactory;
 
   @Override
   public Project findById(Long id) {

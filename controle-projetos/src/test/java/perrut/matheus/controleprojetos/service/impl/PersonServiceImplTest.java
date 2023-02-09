@@ -82,14 +82,12 @@ public class PersonServiceImplTest {
   void shouldNotSavePersonWithRepeatedCpf() {
     when(personRepository.findByCpf(person.getCpf())).thenReturn(PersonMother.getSameCpfList());
 
-    assertThrows(DuplicatedPersonException.class, () -> {
-      personService.savePerson(person);
-    });
+    assertThrows(DuplicatedPersonException.class, () -> personService.savePerson(person));
   }
 
   @Test
   void shouldFindAll() {
-    when(personRepository.findAll()).thenReturn(PersonMother.getPeopleIterator());
+    when(personRepository.findAll()).thenReturn(PersonMother.getPeopleIterable());
 
     assertEquals(1, personService.findAll().size());
   }
@@ -125,9 +123,7 @@ public class PersonServiceImplTest {
     when(projectRepository.findByManagerId(manager.getId())).thenReturn(
         ProjectMother.getProjectList());
 
-    assertThrows(PersonIsManagerException.class, () -> {
-      personService.delete(manager.getId());
-    });
+    assertThrows(PersonIsManagerException.class, () -> personService.delete(manager.getId()));
   }
 
   @Test

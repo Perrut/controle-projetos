@@ -74,8 +74,6 @@ public class MemberServiceImplTest {
     when(personRepository.findById(notEmployee.getId()))
         .thenReturn(Optional.of(notEmployee));
 
-    assertThrows(InvalidEmployeeException.class, () -> {
-      memberService.saveMember(member);
-    });
+    assertThrows(InvalidEmployeeException.class, () -> memberService.saveMember(member));
   }
 }
