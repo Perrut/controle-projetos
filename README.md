@@ -18,6 +18,7 @@
 - Docker
 - Maven
 - Bootstrap 4
+- PostgreSQL
 
 ## Contato
 - Se houver alguma dúvida com a execução do projeto, entre em contato
