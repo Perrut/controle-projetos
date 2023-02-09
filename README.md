@@ -1,11 +1,15 @@
 # Controle Projetos
 
 ## Como executar o projeto?
-- Através do comando `docker compose up`
+- Através do comando `docker compose up -d`
   - O banco de dados será iniciado
   - O projeto será compilado
   - Os testes executados
   - E o servidor irá iniciar assim que o build for concluído
+  - Caso queira resetar o banco, o volume criado pela imagem deve ser excluído
+    - `docker volume rm controle-projetos_postgres`
+  - Caso realize alguma alteração no código, será necessário buildar a imagem novamente
+    - `docker compose up --build -d`
 
 ## URL's importantes
 - Frontend

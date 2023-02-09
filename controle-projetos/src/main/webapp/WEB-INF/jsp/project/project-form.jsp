@@ -23,8 +23,45 @@
             <form:label path="endDate">End date (dd/mm/yyyy): </form:label> <form:input path="endDate"/>
             <form:label path="budget">Budget: </form:label> <form:input path="budget"/>
             <form:label path="description">Description: </form:label> <form:input path="description"/>
-            <form:label path="status">Status: </form:label> <form:input path="status"/>
-            <form:label path="risk">Risk: </form:label> <form:input path="risk"/>
+            <form:label path="status">Status: </form:label>
+            <select name="status">
+              <option value="ANALYZING">
+                ANALYZING
+              </option>
+              <option value="PERFORMED_ANALYSIS">
+                PERFORMED_ANALYSIS
+              </option>
+              <option value="ANALYSIS_APPROVED">
+                ANALYSIS_APPROVED
+              </option>
+              <option value="STARTED">
+                STARTED
+              </option>
+              <option value="PLANNED">
+                PLANNED
+              </option>
+              <option value="IN_PROGRESS">
+                IN_PROGRESS
+              </option>
+              <option value="FINISHED">
+                FINISHED
+              </option>
+              <option value="CANCELED">
+                CANCELED
+              </option>
+            </select>
+            <form:label path="risk">Risk: </form:label>
+            <select name="risk">
+              <option value="LOW">
+                LOW
+              </option>
+              <option value="MEDIUM">
+                MEDIUM
+              </option>
+              <option value="HIGH">
+                HIGH
+              </option>
+            </select>
             <form:label path="managerId">Manager: </form:label>
             <select name="managerId">
               <c:forEach items="${eligibleManagers}" var="manager" varStatus="loop">
@@ -53,6 +90,9 @@
               <input type="submit" value="submit"/>
             </form:form>
         </c:if>
+
+        <a href="/project/list">Back to projects</a>
+
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
