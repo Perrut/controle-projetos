@@ -32,6 +32,7 @@ public class ProjectDTO {
   private ProjectStatus status;
 
   public ProjectDTO() {
+    // deserialization
   }
 
   public Long getId() {

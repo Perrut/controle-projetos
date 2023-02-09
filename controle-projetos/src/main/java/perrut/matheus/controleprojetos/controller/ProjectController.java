@@ -20,7 +20,6 @@ import perrut.matheus.controleprojetos.mapper.ProjectMapper;
 import perrut.matheus.controleprojetos.service.MemberService;
 import perrut.matheus.controleprojetos.service.PersonService;
 import perrut.matheus.controleprojetos.service.ProjectService;
-import perrut.matheus.controleprojetos.utils.ValidationUtils;
 
 @Controller
 @RequestMapping(value = "/project")
@@ -44,77 +43,84 @@ public class ProjectController {
   @Autowired
   private MemberService memberService;
 
+  private static final String PROJECT_ATTRIBUTE = "project";
+  private static final String PROJECT_MEMBER_ATTRIBUTE = "projectMember";
+  private static final String PROJECTS_ATTRIBUTE = "projects";
+  private static final String PROJECT_ACTION_ATTRIBUTE = "projectAction";
+  private static final String ELIGIBLE_MANAGERS_ATTRIBUTE = "eligibleManagers";
+  private static final String PROJECT_LIST = "/project/list";
+
   @GetMapping("/{id}")
   public String viewProject(Model model, @PathVariable Long id) {
-    model.addAttribute("project", projectService.findById(id));
+    model.addAttribute(PROJECT_ATTRIBUTE, projectService.findById(id));
     PersonDTO projectMember = personMapper.personToDTO(personService.findByProjectId(id));
     if (Objects.nonNull(projectMember)) {
-      model.addAttribute("projectMember", projectMember);
+      model.addAttribute(PROJECT_MEMBER_ATTRIBUTE, projectMember);
     }
     return "project/project-details";
   }
 
   @GetMapping("/list")
   public String viewProjects(Model model) {
-    model.addAttribute("projects", projectService.findAll());
+    model.addAttribute(PROJECTS_ATTRIBUTE, projectService.findAll());
     return "project/project-list";
   }
 
   @GetMapping("/new")
   public String addProjectView(Model model) {
-    model.addAttribute("projectAction", "New project");
-    model.addAttribute("project", new ProjectDTO());
+    model.addAttribute(PROJECT_ACTION_ATTRIBUTE, "New project");
+    model.addAttribute(PROJECT_ATTRIBUTE, new ProjectDTO());
     model.addAttribute("addProject", true);
-    model.addAttribute("eligibleManagers",
+    model.addAttribute(ELIGIBLE_MANAGERS_ATTRIBUTE,
         personMapper.toDtoList(personService.listEligibleManagers()));
     return "project/project-form";
   }
 
   @PostMapping("/new")
-  public RedirectView addProject(@ModelAttribute("project") ProjectDTO projectDTO,
+  public RedirectView addProject(@ModelAttribute(PROJECT_ATTRIBUTE) ProjectDTO projectDTO,
       RedirectAttributes redirectAttributes) {
-    final RedirectView redirectView = new RedirectView("/project/list", true);
+    final RedirectView redirectView = new RedirectView(PROJECT_LIST, true);
 
     ProjectDTO savedProjectDTO = projectMapper
         .projectToDTO(projectService.saveProject(projectMapper.dtoToProject(projectDTO)));
 
     redirectAttributes.addFlashAttribute("savedProject", savedProjectDTO);
     redirectAttributes.addFlashAttribute("addProjectSuccess", true);
-    redirectAttributes.addFlashAttribute("projects",
+    redirectAttributes.addFlashAttribute(PROJECTS_ATTRIBUTE,
         projectMapper.toDtoList(projectService.findAll()));
     return redirectView;
   }
 
   @GetMapping("/{id}/edit")
   public String editProjectView(Model model, @PathVariable Long id) {
-    model.addAttribute("eligibleManagers",
+    model.addAttribute(ELIGIBLE_MANAGERS_ATTRIBUTE,
         personMapper.toDtoList(personService.listEligibleManagers()));
     model.addAttribute("employees", personMapper.toDtoList(personService.listEmployees()));
-    model.addAttribute("projectAction", "Update project");
+    model.addAttribute(PROJECT_ACTION_ATTRIBUTE, "Update project");
     model.addAttribute("updateProject", true);
-    model.addAttribute("project",
+    model.addAttribute(PROJECT_ATTRIBUTE,
         projectMapper.projectToDTO(projectService.findById(id)));
     model.addAttribute("member", new MemberDTO());
     PersonDTO projectMember = personMapper.personToDTO(personService.findByProjectId(id));
     if (Objects.nonNull(projectMember)) {
-      model.addAttribute("projectMember", projectMember);
+      model.addAttribute(PROJECT_MEMBER_ATTRIBUTE, projectMember);
     }
     return "project/project-form";
   }
 
   @PostMapping("/{id}/edit")
   public RedirectView editProject(
-      @ModelAttribute("project") ProjectDTO projectDTO,
+      @ModelAttribute(PROJECT_ATTRIBUTE) ProjectDTO projectDTO,
       @PathVariable Long id,
       RedirectAttributes redirectAttributes) {
-    final RedirectView redirectView = new RedirectView("/project/list", true);
+    final RedirectView redirectView = new RedirectView(PROJECT_LIST, true);
 
     ProjectDTO updatedProjectDTO = projectMapper
         .projectToDTO(projectService.updateProject(projectMapper.dtoToProject(projectDTO), id));
 
     redirectAttributes.addFlashAttribute("updatedProject", updatedProjectDTO);
     redirectAttributes.addFlashAttribute("updateProjectSuccess", true);
-    redirectAttributes.addFlashAttribute("projects",
+    redirectAttributes.addFlashAttribute(PROJECTS_ATTRIBUTE,
         projectMapper.toDtoList(projectService.findAll()));
     return redirectView;
   }
@@ -128,18 +134,18 @@ public class ProjectController {
 
     memberService.saveMember(memberMapper.dtoToMember(memberDTO));
 
-    redirectAttributes.addFlashAttribute("eligibleManagers",
+    redirectAttributes.addFlashAttribute(ELIGIBLE_MANAGERS_ATTRIBUTE,
         personMapper.toDtoList(personService.listEligibleManagers()));
     redirectAttributes.addFlashAttribute("employees",
         personMapper.toDtoList(personService.listEmployees()));
-    redirectAttributes.addFlashAttribute("projectAction", "Update project");
+    redirectAttributes.addFlashAttribute(PROJECT_ACTION_ATTRIBUTE, "Update project");
     redirectAttributes.addFlashAttribute("updateProject", true);
-    redirectAttributes.addFlashAttribute("project",
+    redirectAttributes.addFlashAttribute(PROJECT_ATTRIBUTE,
         projectMapper.projectToDTO(projectService.findById(id)));
     redirectAttributes.addFlashAttribute("member", new MemberDTO());
     PersonDTO projectMember = personMapper.personToDTO(personService.findByProjectId(id));
     if (Objects.nonNull(projectMember)) {
-      redirectAttributes.addFlashAttribute("projectMember", projectMember);
+      redirectAttributes.addFlashAttribute(PROJECT_MEMBER_ATTRIBUTE, projectMember);
     }
     return redirectView;
   }
@@ -148,13 +154,13 @@ public class ProjectController {
   public RedirectView deleteProject(
       @PathVariable Long id,
       RedirectAttributes redirectAttributes) {
-    final RedirectView redirectView = new RedirectView("/project/list", true);
+    final RedirectView redirectView = new RedirectView(PROJECT_LIST, true);
 
     projectService.delete(id);
 
     redirectAttributes.addFlashAttribute("deletedProjectId", id);
     redirectAttributes.addFlashAttribute("deleteProjectSuccess", true);
-    redirectAttributes.addFlashAttribute("projects", projectService.findAll());
+    redirectAttributes.addFlashAttribute(PROJECTS_ATTRIBUTE, projectService.findAll());
     return redirectView;
   }
 }

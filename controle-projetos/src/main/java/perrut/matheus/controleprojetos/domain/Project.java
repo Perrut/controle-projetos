@@ -1,5 +1,6 @@
 package perrut.matheus.controleprojetos.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ import perrut.matheus.controleprojetos.enums.ProjectStatus;
 
 @Entity
 @Table(name = "projeto")
-public class Project {
+public class Project implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +62,7 @@ public class Project {
   private ProjectStatus status;
 
   public Project() {
+    // deserialization
   }
 
   public Long getId() {

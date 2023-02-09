@@ -9,16 +9,20 @@ import javax.validation.ValidatorFactory;
 
 public class ValidationUtils {
 
+  private ValidationUtils() {
+    throw new IllegalStateException("Utility class");
+  }
+
   public static <T> String validate(T object) {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
     Set<ConstraintViolation<T>> violations = validator.validate(object);
 
-    return String.join(",", violations.
+    return violations.
         stream().
         map(violation ->
             String.format("%s %s", violation.getPropertyPath().toString(),
                 violation.getMessage())).
-        collect(Collectors.toList()));
+        collect(Collectors.joining(","));
   }
 }

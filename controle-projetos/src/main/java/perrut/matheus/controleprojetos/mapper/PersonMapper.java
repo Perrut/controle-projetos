@@ -7,14 +7,14 @@ import perrut.matheus.controleprojetos.domain.Person;
 import perrut.matheus.controleprojetos.dto.PersonDTO;
 
 @Mapper(componentModel = "spring")
-public abstract class PersonMapper {
+public interface PersonMapper {
 
-  public abstract PersonDTO personToDTO(Person person);
+  PersonDTO personToDTO(Person person);
 
-  public abstract Person dtoToPerson(PersonDTO personDTO);
+  Person dtoToPerson(PersonDTO personDTO);
 
-  public List<PersonDTO> toDtoList(List<Person> personList) {
-    return personList.stream().map((person) -> this.personToDTO(person))
+  default List<PersonDTO> toDtoList(List<Person> personList) {
+    return personList.stream().map(this::personToDTO)
         .collect(Collectors.toList());
   }
 }

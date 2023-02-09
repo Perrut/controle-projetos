@@ -9,6 +9,7 @@ public class MemberDTO {
   Long personId;
 
   public MemberDTO() {
+    // deserialization
   }
 
   public Long getProjectId() {

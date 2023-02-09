@@ -24,7 +24,7 @@ public abstract class ProjectMapper {
   public abstract Project dtoToProject(ProjectDTO projectDTO);
 
   public List<ProjectDTO> toDtoList(List<Project> projects) {
-    return projects.stream().map((project) -> this.projectToDTO(project))
+    return projects.stream().map(this::projectToDTO)
         .collect(Collectors.toList());
   }
 

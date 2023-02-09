@@ -1,5 +1,6 @@
 package perrut.matheus.controleprojetos.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "membros")
-public class Member {
+public class Member implements Serializable {
 
   @Id
   @Column(name = "idprojeto")
@@ -20,6 +21,7 @@ public class Member {
   Long personId;
 
   public Member() {
+    // deserialization
   }
 
   public Long getProjectId() {

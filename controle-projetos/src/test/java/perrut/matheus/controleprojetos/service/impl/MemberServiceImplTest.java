@@ -6,6 +6,7 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ import perrut.matheus.controleprojetos.repository.PersonRepository;
 import perrut.matheus.controleprojetos.repository.ProjectRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class MemberServiceImplTest {
+class MemberServiceImplTest {
 
   @Mock
   MemberRepository memberRepository;
@@ -75,5 +76,14 @@ public class MemberServiceImplTest {
         .thenReturn(Optional.of(notEmployee));
 
     assertThrows(InvalidEmployeeException.class, () -> memberService.saveMember(member));
+  }
+
+  @Test
+  void shouldFailOnSaveMemberWithNotFoundProject() {
+    Person notEmployee = PersonMother.getNotEmployeePerson();
+    member.setPersonId(notEmployee.getId());
+    when(projectRepository.findById(project.getId())).thenReturn(Optional.empty());
+
+    assertThrows(NoSuchElementException.class, () -> memberService.saveMember(member));
   }
 }

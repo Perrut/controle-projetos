@@ -38,9 +38,7 @@ public class MemberServiceImpl implements MemberService {
         throw new InvalidEmployeeException(person);
       }
 
-      memberRepository.findById(member.getProjectId()).ifPresent(m -> {
-        memberRepository.delete(m);
-      });
+      memberRepository.findById(member.getProjectId()).ifPresent(m -> memberRepository.delete(m));
 
       return memberRepository.save(member);
     } else {

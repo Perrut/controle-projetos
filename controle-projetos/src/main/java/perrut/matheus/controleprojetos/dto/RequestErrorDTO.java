@@ -6,6 +6,7 @@ public class RequestErrorDTO {
   private String errorMessage;
 
   public RequestErrorDTO() {
+    // deserialization
   }
 
   public String getErrorMessage() {

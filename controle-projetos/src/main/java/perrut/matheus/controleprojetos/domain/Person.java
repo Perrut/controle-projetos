@@ -1,5 +1,6 @@
 package perrut.matheus.controleprojetos.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "pessoa")
-public class Person {
+public class Person implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +35,7 @@ public class Person {
   private String cpf;
 
   public Person() {
+    // deserialization
   }
 
   public Long getId() {

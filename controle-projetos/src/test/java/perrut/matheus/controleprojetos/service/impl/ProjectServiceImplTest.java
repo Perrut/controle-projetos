@@ -29,7 +29,7 @@ import perrut.matheus.controleprojetos.repository.PersonRepository;
 import perrut.matheus.controleprojetos.repository.ProjectRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class ProjectServiceImplTest {
+class ProjectServiceImplTest {
 
   @Mock
   ProjectRepository projectRepository;
@@ -122,7 +122,8 @@ public class ProjectServiceImplTest {
     when(projectRepository.findById(indelibleProject.getId())).thenReturn(
         Optional.of(indelibleProject));
 
+    Long id = indelibleProject.getId();
     assertThrows(IndelibleProjectException.class,
-        () -> projectService.delete(indelibleProject.getId()));
+        () -> projectService.delete(id));
   }
 }

@@ -31,7 +31,7 @@ import perrut.matheus.controleprojetos.repository.PersonRepository;
 import perrut.matheus.controleprojetos.repository.ProjectRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class PersonServiceImplTest {
+class PersonServiceImplTest {
 
   @Mock
   PersonRepository personRepository;
@@ -123,7 +123,8 @@ public class PersonServiceImplTest {
     when(projectRepository.findByManagerId(manager.getId())).thenReturn(
         ProjectMother.getProjectList());
 
-    assertThrows(PersonIsManagerException.class, () -> personService.delete(manager.getId()));
+    Long id = manager.getId();
+    assertThrows(PersonIsManagerException.class, () -> personService.delete(id));
   }
 
   @Test

@@ -16,6 +16,7 @@ public class PersonDTO {
   private String cpf;
 
   public PersonDTO() {
+    // deserialization
   }
 
   public Long getId() {

@@ -2,7 +2,6 @@ package perrut.matheus.controleprojetos.service;
 
 import java.util.List;
 import perrut.matheus.controleprojetos.domain.Person;
-import perrut.matheus.controleprojetos.domain.Project;
 
 public interface PersonService {
 
