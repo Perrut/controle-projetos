@@ -2,17 +2,20 @@ package perrut.matheus.controleprojetos.dto;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
 
 public class PersonDTO {
 
   private Long id;
 
+  @NotBlank
   private String name;
 
   private LocalDate birthDate;
 
   private boolean employee;
 
+  @NotBlank
   private String cpf;
 
   public PersonDTO() {
