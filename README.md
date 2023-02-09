@@ -1,5 +1,10 @@
 # Controle Projetos
 
+## Observações:
+
+- A branch master desse projeto contém as alterações feitas até o dia 08/02/2023
+- A branch develop desse projeto contém as alterações feitas até o dia 09/02/2023
+
 ## Como executar o projeto?
 - Através do comando `docker compose up -d`
   - O banco de dados será iniciado
