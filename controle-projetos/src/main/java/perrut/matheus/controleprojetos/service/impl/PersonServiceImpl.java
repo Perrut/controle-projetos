@@ -102,7 +102,7 @@ public class PersonServiceImpl implements PersonService {
     List<Person> personList = personRepository.findByCpf(person.getCpf());
     if (!personList.isEmpty()) {
       List<Person> differentIdPersonList = personList.stream().filter(p ->
-          p.getId() != person.getId()
+          !p.getId().equals(person.getId())
       ).collect(Collectors.toList());
       if (!differentIdPersonList.isEmpty()) {
         throw new DuplicatedPersonException(person);
