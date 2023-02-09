@@ -1,6 +1,8 @@
 package perrut.matheus.controleprojetos.mother;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 import perrut.matheus.controleprojetos.domain.Project;
 import perrut.matheus.controleprojetos.enums.ProjectRisk;
 import perrut.matheus.controleprojetos.enums.ProjectStatus;
@@ -22,5 +24,9 @@ public class ProjectMother {
     project.setId(1l);
 
     return project;
+  }
+
+  public static List<Project> getProjectList() {
+    return Arrays.asList(getProject());
   }
 }
