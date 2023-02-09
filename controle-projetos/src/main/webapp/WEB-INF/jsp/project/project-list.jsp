@@ -16,8 +16,11 @@
             }
           }
         </script>
+        <link href="<c:url value="/css/application.css"/>" rel="stylesheet" type="text/css">
     </head>
     <body>
+      <div class="container">
+        <h2 class="page-title">Projects</h2>
         <c:if test="${addProjectSuccess}">
             <div>Successfully added Project with ID: ${savedProject.id}</div>
         </c:if>
@@ -48,16 +51,16 @@
                         <td>${project.status}</td>
                         <td>${project.risk}</td>
                         <td>
-                          <a href="${project_url}">View</a>
+                          <a class="btn btn-primary" href="${project_url}">View</a>
                         </td>
                         <td>
-                          <a href="${edit_project_url}">Edit</a>
+                          <a class="btn btn-primary" href="${edit_project_url}">Edit</a>
                         </td>
                         <td>
-                          <a href=""
+                          <button type="button" class="btn btn-primary" href=""
                             onclick="confirmAction(event, ${project.id})">
                             Delete
-                          </a>
+                          </button>
                           <form class="delete-form"
                             id="form-${project.id}"
                             action="${project_url}" method="post">
@@ -67,9 +70,10 @@
                 </c:forEach>
             </tbody>
         </table>
-        <a href="/project/new">New project</a>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <a class="btn btn-primary" href="/project/new">New project</a>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>
